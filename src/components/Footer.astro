@@ -1,0 +1,130 @@
+---
+interface Props {
+  links: {
+    docs: string;
+    gitlab: string;
+    hive: string;
+    npm: string;
+    pypi: string;
+  };
+}
+
+const { links } = Astro.props;
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="tmux-status" role="contentinfo">
+  <div class="tmux-status__bar">
+    <span class="tmux-status__dot" aria-hidden="true">●</span
+    ><span class="tmux-status__separator" aria-hidden="true">│</span
+    ><span class="tmux-status__segment">wax &copy; {currentYear}</span
+    ><span class="tmux-status__separator" aria-hidden="true">│</span
+    ><a
+      href={links.docs}
+      class="tmux-status__link"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Docs — opens in new tab"
+      >Docs</a
+    ><span class="tmux-status__separator" aria-hidden="true">│</span
+    ><a
+      href={links.gitlab}
+      class="tmux-status__link"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="GitLab repository — opens in new tab"
+      >GitLab</a
+    ><span class="tmux-status__separator" aria-hidden="true">│</span
+    ><a
+      href={links.hive}
+      class="tmux-status__link"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Hive.io — opens in new tab"
+      >Hive.io</a
+    ><span class="tmux-status__separator" aria-hidden="true">│</span
+    ><a
+      href={links.npm}
+      class="tmux-status__link"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="npm package — opens in new tab"
+      >npm</a
+    ><span class="tmux-status__separator" aria-hidden="true">│</span
+    ><a
+      href={links.pypi}
+      class="tmux-status__link"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="PyPI package — opens in new tab"
+      >PyPI</a
+    ><span class="tmux-status__separator" aria-hidden="true">│</span
+    ><span class="tmux-status__segment">MIT License</span>
+  </div>
+</footer>
+
+<style>
+  .tmux-status {
+    background-color: var(--color-bg-surface);
+    border-top: 1px solid var(--color-border);
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+    line-height: 1;
+  }
+
+  .tmux-status__bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    padding: var(--space-2) var(--space-4);
+    min-height: 2rem;
+  }
+
+  .tmux-status__segment {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .tmux-status__separator {
+    color: var(--color-text-subtle);
+    padding-inline: var(--space-2);
+    user-select: none;
+  }
+
+  .tmux-status__link {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color var(--duration-fast) var(--ease-out-quad);
+  }
+
+  .tmux-status__link:hover,
+  .tmux-status__link:focus-visible {
+    color: var(--color-primary-bright);
+    text-shadow: var(--glow-intensity) var(--glow-color);
+  }
+
+  .tmux-status__link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  .tmux-status__dot {
+    color: var(--color-accent-success);
+    font-size: 0.625rem;
+    line-height: 1;
+  }
+
+  @media (max-width: 40rem) {
+    .tmux-status__bar {
+      padding: var(--space-2) var(--space-3);
+      justify-content: center;
+    }
+  }
+</style>

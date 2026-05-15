@@ -1,0 +1,171 @@
+---
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+import Hero from "../components/Hero.astro";
+import GetStarted from "../components/GetStarted.astro";
+import Features from "../components/Features.astro";
+import FrameworksSupport from "../components/FrameworksSupport.astro";
+import CodeExamples from "../components/CodeExamples.astro";
+import Ecosystem from "../components/Ecosystem.astro";
+import Footer from "../components/Footer.astro";
+import BlockchainCanvas from "../components/BlockchainCanvas.astro";
+
+const title = "Wax — Official Hive Protocol Library";
+const description = "The official protocol library for Hive blockchain. One C++ core compiled to TypeScript (WASM) and Python (Cython) — full type safety, pluggable signers, zero config bundling.";
+
+const features = [
+  { icon: "{ }", title: "Dual Runtime", description: "Same C++ core compiled to WASM for TypeScript and Cython for Python. Write once, run anywhere." },
+  { icon: "→", title: "Pluggable Signers", description: "Beekeeper, Keychain, MetaMask, PeakVault — swap signing providers without changing your code." },
+  { icon: "//", title: "Full Type Safety", description: "Protocol Buffers generate types for every operation. Catch errors at compile time, not on‑chain." },
+  { icon: "**", title: "Built-in Encryption", description: "Encrypt memos, comments, and custom_json out of the box. AES with shared secrets." },
+  { icon: "<>", title: "Universal Bundling", description: "Node.js, Vite, Webpack, Next.js, Nuxt, SSR — works everywhere with zero configuration." },
+  { icon: "=>", title: "Complex Operations", description: "High-level builders for recurrent transfers, witness updates, authority changes, and more." },
+];
+
+const links = {
+  docs: "https://gitlab.syncad.com/hive/wax/-/blob/develop/README.md",
+  gitlab: "https://gitlab.syncad.com/hive/wax",
+  hive: "https://hive.io",
+  npm: "https://www.npmjs.com/package/@hiveio/wax",
+  pypi: "https://pypi.org/project/hiveio-wax/",
+};
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wax.hive.io" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+  </head>
+  <body class="bg-bg-primary text-text-primary font-body antialiased">
+    <BlockchainCanvas />
+    <a href="#main-content" class="skip-link relative z-[1]">Skip to content</a>
+
+    <Nav links={links} />
+
+    <main id="main-content" class="relative z-[1]">
+      <Hero description={description} />
+      <GetStarted docsUrl={links.docs} />
+      <Features features={features} />
+      <FrameworksSupport />
+      <CodeExamples />
+      <Ecosystem />
+    </main>
+
+    <Footer links={links} />
+
+    <script>
+      // Nav scroll effect
+      const nav = document.getElementById('nav');
+      function updateNav() {
+        if (!nav) return;
+        if (window.scrollY > 10) {
+          nav.style.backgroundColor = 'rgba(10, 10, 10, 0.8)';
+          nav.style.backdropFilter = 'blur(12px)';
+          nav.style.borderBottom = '1px solid rgba(235, 235, 235, 0.1)';
+        } else {
+          nav.style.backgroundColor = '';
+          nav.style.backdropFilter = '';
+          nav.style.borderBottom = '';
+        }
+      }
+      window.addEventListener('scroll', updateNav, { passive: true });
+      updateNav();
+
+      // Active nav link based on scroll position
+      const navLinks = /** @type {NodeListOf<HTMLAnchorElement>} */ (
+        document.querySelectorAll('#nav nav a[href^="#"]')
+      );
+      const sectionIds = Array.from(navLinks).map((link) => link.getAttribute('href')?.slice(1)).filter(Boolean);
+      const sections = sectionIds.map((id) => document.getElementById(/** @type {string} */ (id))).filter(Boolean);
+
+      if (sections.length > 0 && navLinks.length > 0) {
+        /** @type {string | null} */
+        let activeId = null;
+
+        const sectionObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                activeId = entry.target.id;
+              }
+            });
+
+            navLinks.forEach((link) => {
+              const href = link.getAttribute('href');
+              if (href === `#${activeId}`) {
+                link.classList.remove('text-text-tertiary');
+                link.classList.add('text-accent');
+              } else {
+                link.classList.remove('text-accent');
+                link.classList.add('text-text-tertiary');
+              }
+            });
+          },
+          { threshold: 0, rootMargin: '-50% 0px -50% 0px' }
+        );
+
+        sections.forEach((section) => sectionObserver.observe(/** @type {Element} */ (section)));
+      }
+
+      // Scroll animations
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!prefersReducedMotion) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+        );
+
+        document.querySelectorAll('[data-animate]').forEach((el) => {
+          observer.observe(el);
+        });
+      } else {
+        document.querySelectorAll('[data-animate]').forEach((el) => {
+          el.classList.add('animate-in');
+        });
+      }
+
+      // Copy buttons
+      document.querySelectorAll('.copy-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const text = /** @type {HTMLElement} */ (btn).dataset.copy;
+          if (!text) return;
+
+          navigator.clipboard.writeText(text).then(() => {
+            const svg = btn.querySelector('svg');
+            if (!svg) return;
+
+            const originalHTML = svg.innerHTML;
+            svg.innerHTML = '<polyline points="4 8 7 11 12 4" />';
+            svg.setAttribute('stroke', 'var(--color-accent)');
+
+            setTimeout(() => {
+              svg.innerHTML = originalHTML;
+              svg.removeAttribute('stroke');
+            }, 1500);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+---
+interface Props {
+  docsUrl: string;
+}
+
+const { docsUrl } = Astro.props;
+---
+
+<section id="get-started" class="min-h-dvh flex flex-col justify-center bg-bg-secondary py-24 max-md:py-16" aria-labelledby="getstarted-heading">
+  <div class="mx-auto max-w-[720px] px-6">
+    <h2 id="getstarted-heading" data-animate class="font-display text-[40px] max-md:text-[28px] leading-[1.2] text-text-primary text-center mb-12">
+      Get started in seconds
+    </h2>
+    <div data-animate class="grid grid-cols-2 max-sm:grid-cols-1 gap-4">
+      <div>
+        <p class="text-[13px] uppercase tracking-[0.05em] text-text-tertiary font-display mb-3">TypeScript</p>
+        <div class="relative bg-surface border border-border rounded-[8px] p-4">
+          <pre class="text-[14px] font-body text-text-primary pr-10"><code>pnpm add @hiveio/wax</code></pre>
+          <button
+            class="copy-btn absolute top-3 right-3 w-8 h-8 flex items-center justify-center text-text-tertiary hover:text-text-secondary transition-colors rounded-[4px] hover:bg-surface-hover cursor-pointer"
+            aria-label="Copy install command"
+            data-copy="pnpm add @hiveio/wax"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5.5" y="5.5" width="8" height="8" rx="1.5"></rect>
+              <path d="M10.5 5.5V3.5C10.5 2.67 9.83 2 9 2H3.5C2.67 2 2 2.67 2 3.5V9C2 9.83 2.67 10.5 3.5 10.5H5.5"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div>
+        <p class="text-[13px] uppercase tracking-[0.05em] text-text-tertiary font-display mb-3">Python</p>
+        <div class="relative bg-surface border border-border rounded-[8px] p-4">
+          <pre class="text-[14px] font-body text-text-primary pr-10"><code>pip install hiveio-wax</code></pre>
+          <button
+            class="copy-btn absolute top-3 right-3 w-8 h-8 flex items-center justify-center text-text-tertiary hover:text-text-secondary transition-colors rounded-[4px] hover:bg-surface-hover cursor-pointer"
+            aria-label="Copy install command"
+            data-copy="pip install hiveio-wax"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5.5" y="5.5" width="8" height="8" rx="1.5"></rect>
+              <path d="M10.5 5.5V3.5C10.5 2.67 9.83 2 9 2H3.5C2.67 2 2 2.67 2 3.5V9C2 9.83 2.67 10.5 3.5 10.5H5.5"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div data-animate class="text-center mt-8">
+      <a href={docsUrl} class="text-accent font-display text-[15px] hover:text-accent-hover transition-colors" target="_blank" rel="noopener noreferrer">
+        Read the docs &rarr;
+      </a>
+    </div>
+  </div>
+</section>

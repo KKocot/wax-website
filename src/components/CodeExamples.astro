@@ -1,0 +1,239 @@
+---
+const tabs = [
+  { id: "vote", label: "Vote" },
+  { id: "transaction", label: "Transaction" },
+  { id: "sign", label: "Sign" },
+  { id: "broadcast", label: "Broadcast" },
+  { id: "extend-api", label: "Extend API" },
+];
+
+const codeVote = `<code><span class="text-accent">import</span> <span class="text-text-primary">{ createHiveChain }</span> <span class="text-accent">from</span> <span class="text-code-string">"@hiveio/wax"</span>;
+
+<span class="text-accent">const</span> <span class="text-text-primary">chain</span> = <span class="text-accent">await</span> <span class="text-text-primary">createHiveChain</span>();
+<span class="text-accent">const</span> <span class="text-text-primary">tx</span> = <span class="text-accent">await</span> <span class="text-text-primary">chain</span>.<span class="text-text-primary">createTransaction</span>();
+
+<span class="text-text-primary">tx</span>.<span class="text-text-primary">pushOperation</span>({
+  <span class="text-text-primary">vote</span>: {
+    <span class="text-text-primary">voter</span>: <span class="text-code-string">"alice"</span>,
+    <span class="text-text-primary">author</span>: <span class="text-code-string">"bob"</span>,
+    <span class="text-text-primary">permlink</span>: <span class="text-code-string">"my-post"</span>,
+    <span class="text-text-primary">weight</span>: <span class="text-accent">10000</span>
+  }
+});</code>`;
+
+const codeTransaction = `<code><span class="text-accent">import</span> <span class="text-text-primary">{ createWaxFoundation }</span> <span class="text-accent">from</span> <span class="text-code-string">"@hiveio/wax"</span>;
+
+<span class="text-accent">const</span> <span class="text-text-primary">wax</span> = <span class="text-accent">await</span> <span class="text-text-primary">createWaxFoundation</span>();
+
+<span class="text-accent">const</span> <span class="text-text-primary">transaction</span> = <span class="text-text-primary">wax</span>.<span class="text-text-primary">createTransactionFromJson</span>(<span class="text-code-string">\`{
+  "ref_block_num": 19260,
+  "ref_block_prefix": 2140466769,
+  "expiration": "2016-09-15T19:47:33",
+  "operations": [ {
+    "value": {
+      "voter": "taoteh1221",
+      "author": "ozchartart",
+      "permlink": "usdsteem-btc-daily-poloniex...",
+      "weight": 10000
+    },
+    "type": "vote_operation"
+  } ],
+  "extensions": []
+}\`</span>);
+<span class="text-text-primary">console</span>.<span class="text-text-primary">info</span>(<span class="text-text-primary">transaction</span>.<span class="text-text-primary">id</span>);</code>`;
+
+const codeSign = `<code><span class="text-accent">import</span> <span class="text-text-primary">{ createHiveChain }</span> <span class="text-accent">from</span> <span class="text-code-string">"@hiveio/wax"</span>;
+<span class="text-accent">import</span> <span class="text-text-primary">beekeeperFactory</span> <span class="text-accent">from</span> <span class="text-code-string">"@hiveio/beekeeper"</span>;
+
+<span class="text-accent">const</span> <span class="text-text-primary">bk</span> = <span class="text-accent">await</span> <span class="text-text-primary">beekeeperFactory</span>();
+<span class="text-accent">const</span> <span class="text-text-primary">chain</span> = <span class="text-accent">await</span> <span class="text-text-primary">createHiveChain</span>();
+
+<span class="text-accent">const</span> <span class="text-text-primary">session</span> = <span class="text-text-primary">bk</span>.<span class="text-text-primary">createSession</span>(<span class="text-code-string">"salt"</span>);
+<span class="text-accent">const</span> <span class="text-text-primary">{ wallet }</span> = <span class="text-accent">await</span> <span class="text-text-primary">session</span>.<span class="text-text-primary">createWallet</span>(<span class="text-code-string">"w0"</span>);
+<span class="text-accent">const</span> <span class="text-text-primary">publicKey</span> = <span class="text-accent">await</span> <span class="text-text-primary">wallet</span>.<span class="text-text-primary">importKey</span>(<span class="text-code-string">'5JkFnXr...'</span>);
+
+<span class="text-accent">const</span> <span class="text-text-primary">tx</span> = <span class="text-accent">await</span> <span class="text-text-primary">chain</span>.<span class="text-text-primary">createTransaction</span>();
+<span class="text-text-primary">tx</span>.<span class="text-text-primary">pushOperation</span>({
+  <span class="text-text-primary">vote</span>: {
+    <span class="text-text-primary">voter</span>: <span class="text-code-string">"otom"</span>,
+    <span class="text-text-primary">author</span>: <span class="text-code-string">"c0ff33a"</span>,
+    <span class="text-text-primary">permlink</span>: <span class="text-code-string">"ewxhnjbj"</span>,
+    <span class="text-text-primary">weight</span>: <span class="text-accent">2200</span>
+  }
+}).<span class="text-text-primary">validate</span>();
+
+<span class="text-accent">const</span> <span class="text-text-primary">stx</span> = <span class="text-text-primary">tx</span>.<span class="text-text-primary">sign</span>(<span class="text-text-primary">wallet</span>, <span class="text-text-primary">publicKey</span>);
+<span class="text-text-primary">console</span>.<span class="text-text-primary">info</span>(<span class="text-text-primary">chain</span>.<span class="text-text-primary">waxify</span><span class="text-code-string">\`\${stx}\`</span>);</code>`;
+
+const codeBroadcast = `<code><span class="text-accent">import</span> <span class="text-text-primary">{ createHiveChain }</span> <span class="text-accent">from</span> <span class="text-code-string">"@hiveio/wax"</span>;
+<span class="text-accent">import</span> <span class="text-text-primary">beekeeperFactory</span> <span class="text-accent">from</span> <span class="text-code-string">"@hiveio/beekeeper"</span>;
+
+<span class="text-accent">const</span> <span class="text-text-primary">bk</span> = <span class="text-accent">await</span> <span class="text-text-primary">beekeeperFactory</span>();
+<span class="text-accent">const</span> <span class="text-text-primary">chain</span> = <span class="text-accent">await</span> <span class="text-text-primary">createHiveChain</span>();
+
+<span class="text-accent">const</span> <span class="text-text-primary">session</span> = <span class="text-text-primary">bk</span>.<span class="text-text-primary">createSession</span>(<span class="text-code-string">"salt"</span>);
+<span class="text-accent">const</span> <span class="text-text-primary">{ wallet }</span> = <span class="text-accent">await</span> <span class="text-text-primary">session</span>.<span class="text-text-primary">createWallet</span>(<span class="text-code-string">"w0"</span>);
+<span class="text-accent">const</span> <span class="text-text-primary">publicKey</span> = <span class="text-accent">await</span> <span class="text-text-primary">wallet</span>.<span class="text-text-primary">importKey</span>(<span class="text-code-string">'5JkFnXr...'</span>);
+
+<span class="text-accent">const</span> <span class="text-text-primary">tx</span> = <span class="text-accent">await</span> <span class="text-text-primary">chain</span>.<span class="text-text-primary">createTransaction</span>();
+<span class="text-text-primary">tx</span>.<span class="text-text-primary">pushOperation</span>({
+  <span class="text-text-primary">vote</span>: {
+    <span class="text-text-primary">voter</span>: <span class="text-code-string">"otom"</span>,
+    <span class="text-text-primary">author</span>: <span class="text-code-string">"c0ff33a"</span>,
+    <span class="text-text-primary">permlink</span>: <span class="text-code-string">"ewxhnjbj"</span>,
+    <span class="text-text-primary">weight</span>: <span class="text-accent">2200</span>
+  }
+}).<span class="text-text-primary">sign</span>(<span class="text-text-primary">wallet</span>, <span class="text-text-primary">publicKey</span>);
+
+<span class="text-accent">await</span> <span class="text-text-primary">chain</span>.<span class="text-text-primary">broadcast</span>(<span class="text-text-primary">tx</span>);</code>`;
+
+const codeExtendApi = `<code><span class="text-accent">import</span> <span class="text-text-primary">{ createHiveChain, TWaxApiRequest }</span> <span class="text-accent">from</span> <span class="text-code-string">"@hiveio/wax"</span>;
+
+<span class="text-accent">const</span> <span class="text-text-primary">chain</span> = <span class="text-accent">await</span> <span class="text-text-primary">createHiveChain</span>();
+
+<span class="text-accent">type</span> <span class="text-text-primary">TExtendedApi</span> = {
+  <span class="text-text-primary">transaction_status_api</span>: {
+    <span class="text-text-primary">find_transaction</span>: <span class="text-text-primary">TWaxApiRequest</span>&lt;
+      { <span class="text-text-primary">transaction_id</span>: <span class="text-accent">string</span>; <span class="text-text-primary">expiration</span>: <span class="text-accent">string</span> },
+      { <span class="text-text-primary">status</span>: <span class="text-code-string">'unknown'</span> | <span class="text-accent">string</span> }
+    &gt;
+  }
+};
+
+<span class="text-accent">const</span> <span class="text-text-primary">extended</span> = <span class="text-text-primary">chain</span>.<span class="text-text-primary">extend</span>&lt;<span class="text-text-primary">TExtendedApi</span>&gt;();
+<span class="text-accent">const</span> <span class="text-text-primary">result</span> = <span class="text-accent">await</span> <span class="text-text-primary">extended</span>.<span class="text-text-primary">api</span>
+  .<span class="text-text-primary">transaction_status_api</span>
+  .<span class="text-text-primary">find_transaction</span>({
+    <span class="text-text-primary">transaction_id</span>: <span class="text-code-string">"0000000000..."</span>,
+    <span class="text-text-primary">expiration</span>: <span class="text-code-string">"2016-03-24T18:00:21"</span>
+  });</code>`;
+
+const codePanels = [
+  { id: "vote", code: codeVote },
+  { id: "transaction", code: codeTransaction },
+  { id: "sign", code: codeSign },
+  { id: "broadcast", code: codeBroadcast },
+  { id: "extend-api", code: codeExtendApi },
+];
+---
+
+<section id="code" class="min-h-dvh flex flex-col justify-center bg-bg-secondary py-24 max-md:py-16" aria-labelledby="code-heading">
+  <div class="mx-auto max-w-[720px] px-6 w-full">
+    <h2 id="code-heading" data-animate class="font-display text-[40px] max-md:text-[28px] leading-[1.2] text-text-primary text-center mb-12">
+      See it in action
+    </h2>
+    <div data-animate>
+      <div role="tablist" class="flex gap-0 mb-0 border-b border-border overflow-x-auto scrollbar-none" aria-label="Code examples">
+        {tabs.map((tab, i) => (
+          <button
+            role="tab"
+            id={`tab-${tab.id}`}
+            aria-selected={i === 0 ? "true" : "false"}
+            aria-controls={`panel-${tab.id}`}
+            tabindex={i === 0 ? 0 : -1}
+            class:list={[
+              "code-tab font-display text-[14px] px-4 py-3 border-b-2 transition-colors cursor-pointer whitespace-nowrap shrink-0",
+              i === 0 ? "text-accent border-accent" : "text-text-tertiary border-transparent",
+            ]}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      {codePanels.map((panel, i) => (
+        <div
+          id={`panel-${panel.id}`}
+          role="tabpanel"
+          aria-labelledby={`tab-${panel.id}`}
+          class:list={[
+            "bg-surface border border-t-0 border-border rounded-b-[8px] p-6 overflow-x-auto",
+            i !== 0 && "hidden",
+          ]}
+          tabindex="0"
+        >
+          <pre class="text-[14px] leading-[1.7] font-body" set:html={panel.code} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script>
+  function initCodeTabs() {
+    const tablist = document.querySelector('#code [role="tablist"]');
+    if (!tablist) return;
+
+    const tabs = /** @type {HTMLButtonElement[]} */ (
+      Array.from(tablist.querySelectorAll('[role="tab"]'))
+    );
+    const panels = tabs.map((tab) =>
+      document.getElementById(tab.getAttribute('aria-controls') || '')
+    );
+
+    function activateTab(/** @type {number} */ index) {
+      tabs.forEach((tab, i) => {
+        const isActive = i === index;
+        tab.setAttribute('aria-selected', String(isActive));
+        tab.tabIndex = isActive ? 0 : -1;
+
+        if (isActive) {
+          tab.classList.add('text-accent', 'border-accent');
+          tab.classList.remove('text-text-tertiary', 'border-transparent');
+        } else {
+          tab.classList.remove('text-accent', 'border-accent');
+          tab.classList.add('text-text-tertiary', 'border-transparent');
+        }
+      });
+
+      panels.forEach((panel, i) => {
+        if (!panel) return;
+        if (i === index) {
+          panel.classList.remove('hidden');
+        } else {
+          panel.classList.add('hidden');
+        }
+      });
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => {
+        activateTab(i);
+      });
+
+      tab.addEventListener('keydown', (e) => {
+        let newIndex = i;
+
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          newIndex = (i + 1) % tabs.length;
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          newIndex = (i - 1 + tabs.length) % tabs.length;
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          newIndex = 0;
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          newIndex = tabs.length - 1;
+        } else {
+          return;
+        }
+
+        activateTab(newIndex);
+        tabs[newIndex].focus();
+      });
+    });
+  }
+
+  initCodeTabs();
+</script>

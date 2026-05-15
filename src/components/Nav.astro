@@ -1,0 +1,35 @@
+---
+interface Props {
+  links: {
+    docs: string;
+    gitlab: string;
+    npm: string;
+  };
+}
+
+const { links } = Astro.props;
+---
+
+<header id="nav" class="fixed top-0 left-0 right-0 z-50 transition-colors duration-200">
+  <nav class="mx-auto max-w-[1120px] px-6 flex items-center justify-between h-14" aria-label="Main navigation">
+    <a href="/" class="text-accent font-display text-[18px] font-medium tracking-tight">Wax</a>
+    <div class="hidden md:flex items-center gap-6">
+      <a href="#get-started" class="text-text-tertiary text-[13px] font-display uppercase tracking-[0.05em] hover:text-text-secondary transition-colors">Get Started</a>
+      <a href="#features" class="text-text-tertiary text-[13px] font-display uppercase tracking-[0.05em] hover:text-text-secondary transition-colors">Features</a>
+      <a href="#frameworks" class="text-text-tertiary text-[13px] font-display uppercase tracking-[0.05em] hover:text-text-secondary transition-colors">Frameworks</a>
+      <a href="#code" class="text-text-tertiary text-[13px] font-display uppercase tracking-[0.05em] hover:text-text-secondary transition-colors">Code</a>
+      <a href="#ecosystem" class="text-text-tertiary text-[13px] font-display uppercase tracking-[0.05em] hover:text-text-secondary transition-colors">Ecosystem</a>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href={links.docs} class="text-text-tertiary hover:text-accent transition-colors" target="_blank" rel="noopener noreferrer" aria-label="Documentation">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </a>
+      <a href={links.gitlab} class="text-text-tertiary hover:text-accent transition-colors" target="_blank" rel="noopener noreferrer" aria-label="GitLab repository">
+        <svg class="w-6 h-6" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 30.4L21.3 14.1H10.7L16 30.4Z"/><path d="M16 30.4L10.7 14.1H2.4L16 30.4Z" opacity="0.7"/><path d="M2.4 14.1L0.5 20.1C0.3 20.7 0.5 21.4 1 21.8L16 30.4L2.4 14.1Z" opacity="0.5"/><path d="M2.4 14.1H10.7L7.4 3.9C7.2 3.3 6.4 3.3 6.2 3.9L2.4 14.1Z"/><path d="M16 30.4L21.3 14.1H29.6L16 30.4Z" opacity="0.7"/><path d="M29.6 14.1L31.5 20.1C31.7 20.7 31.5 21.4 31 21.8L16 30.4L29.6 14.1Z" opacity="0.5"/><path d="M29.6 14.1H21.3L24.6 3.9C24.8 3.3 25.6 3.3 25.8 3.9L29.6 14.1Z"/></svg>
+      </a>
+      <a href={links.npm} class="text-text-tertiary hover:text-accent transition-colors" target="_blank" rel="noopener noreferrer" aria-label="npm package">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.331h-2.669zm12-.002h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.329z"/></svg>
+      </a>
+    </div>
+  </nav>
+</header>

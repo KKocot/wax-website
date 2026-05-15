@@ -1,0 +1,35 @@
+---
+const frameworks = [
+  { name: "Node.js", desc: "Full support with automatic resolution to the node.js-optimized build." },
+  { name: "Next.js + Webpack", desc: "Works out of the box with Next.js Webpack bundler. SSR-ready." },
+  { name: "Rollup", desc: "Native ES module support with tree-shaking for minimal bundles." },
+  { name: "React + Vite", desc: "Lightning-fast HMR and optimized production builds with Vite." },
+  { name: "Nuxt (Vite)", desc: "First-class Nuxt 3 support via Vite with SSR auto-detection." },
+  { name: "Vue + Vite", desc: "Seamless integration with Vue 3 and Vite dev server." },
+  { name: "Vue.js + Webpack", desc: "Compatible with Vue CLI and Webpack-based Vue projects." },
+  { name: "Parcel", desc: "Zero-config bundling — just install and import." },
+];
+---
+
+<section id="frameworks" class="bg-bg-secondary py-24 max-md:py-16" aria-labelledby="frameworks-heading">
+  <div class="mx-auto max-w-[1120px] px-6">
+    <h2 id="frameworks-heading" data-animate class="font-display text-[40px] max-md:text-[28px] leading-[1.2] text-text-primary text-center mb-4">
+      Works everywhere
+    </h2>
+    <p data-animate class="text-text-secondary text-[15px] leading-[1.6] text-center max-w-2xl mx-auto mb-12">
+      Imports automatically resolve to either web or node.js version based on your execution environment &mdash; helpful in SSR scenarios.
+    </p>
+    <div class="grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-4">
+      {frameworks.map((fw, i) => (
+        <div
+          data-animate
+          style={`transition-delay: ${i * 50}ms`}
+          class="bg-surface border border-border rounded-[8px] p-6 hover:border-border-hover hover:bg-surface-hover transition-all duration-200"
+        >
+          <h3 class="text-text-primary font-display text-[16px] leading-[1.4] mb-2">{fw.name}</h3>
+          <p class="text-text-secondary text-[13px] leading-[1.6]">{fw.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
