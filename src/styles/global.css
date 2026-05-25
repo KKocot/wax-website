@@ -90,3 +90,12 @@
 .skip-link:focus {
   top: 0;
 }
+
+/* Hero gradient heading */
+.hero-heading-accent {
+  background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #F59E0B;
+}
