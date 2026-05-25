@@ -98,12 +98,14 @@ const links = {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
                 activeId = entry.target.id;
+              } else if (entry.target.id === activeId) {
+                activeId = null;
               }
             });
 
             navLinks.forEach((link) => {
               const href = link.getAttribute('href');
-              if (href === `#${activeId}`) {
+              if (activeId && href === `#${activeId}`) {
                 link.classList.remove('text-text-tertiary');
                 link.classList.add('text-accent');
               } else {
