@@ -2,7 +2,6 @@
 import "../styles/global.css";
 import Nav from "../components/Nav.astro";
 import Hero from "../components/Hero.astro";
-import GetStarted from "../components/GetStarted.astro";
 import Features from "../components/Features.astro";
 import FrameworksSupport from "../components/FrameworksSupport.astro";
 import CodeExamples from "../components/CodeExamples.astro";
@@ -57,7 +56,6 @@ const links = {
 
     <main id="main-content" class="relative z-[1]">
       <Hero description={description} />
-      <GetStarted docsUrl={links.docs} />
       <Features features={features} />
       <FrameworksSupport />
       <CodeExamples />
