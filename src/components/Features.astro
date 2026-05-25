@@ -12,9 +12,9 @@ interface Props {
 const { features } = Astro.props;
 ---
 
-<section id="features" class="min-h-dvh flex flex-col justify-center py-24 max-md:py-16" aria-labelledby="features-heading">
+<section id="features" class="min-h-dvh flex flex-col justify-center bg-bg-secondary py-24 max-md:py-16" aria-labelledby="features-heading">
   <div class="mx-auto max-w-[1120px] px-6">
-    <h2 id="features-heading" class="sr-only">Features</h2>
+    <h2 id="features-heading" data-animate class="font-display text-[40px] max-md:text-[28px] leading-[1.2] text-text-primary text-center mb-12">Features</h2>
     <div class="grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-4">
       {features.map((feature, i) => (
         <div
