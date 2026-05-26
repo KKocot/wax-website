@@ -4,6 +4,7 @@ interface Props {
     docs: string;
     gitlab: string;
     npm: string;
+    pypi: string;
   };
 }
 
@@ -28,6 +29,9 @@ const { links } = Astro.props;
       </a>
       <a href={links.npm} class="text-text-tertiary hover:text-accent transition-colors" target="_blank" rel="noopener noreferrer" aria-label="npm package">
         <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.331h-2.669zm12-.002h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.329z"/></svg>
+      </a>
+      <a href={links.pypi} class="text-text-tertiary hover:text-accent transition-colors" target="_blank" rel="noopener noreferrer" aria-label="PyPI package">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
       </a>
     </div>
   </nav>
