@@ -10,14 +10,11 @@ interface Props {
 }
 
 const { links } = Astro.props;
-const currentYear = new Date().getFullYear();
 ---
 
 <footer class="tmux-status" role="contentinfo">
   <div class="tmux-status__bar">
-    <span class="tmux-status__dot" aria-hidden="true">●</span
-    ><span class="tmux-status__separator" aria-hidden="true">│</span
-    ><span class="tmux-status__segment">wax &copy; {currentYear}</span
+    <a href={links.gitlab} class="tmux-status__link" target="_blank" rel="noopener noreferrer" aria-label="wax GitLab repository — opens in new tab">[wax]</a
     ><span class="tmux-status__separator" aria-hidden="true">│</span
     ><a
       href={links.docs}
@@ -28,20 +25,12 @@ const currentYear = new Date().getFullYear();
       >Docs</a
     ><span class="tmux-status__separator" aria-hidden="true">│</span
     ><a
-      href={links.gitlab}
-      class="tmux-status__link"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="GitLab repository — opens in new tab"
-      >GitLab</a
-    ><span class="tmux-status__separator" aria-hidden="true">│</span
-    ><a
       href={links.hive}
       class="tmux-status__link"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Hive.io — opens in new tab"
-      >Hive.io</a
+      aria-label="Hive — opens in new tab"
+      >Hive</a
     ><span class="tmux-status__separator" aria-hidden="true">│</span
     ><a
       href={links.npm}
@@ -59,7 +48,21 @@ const currentYear = new Date().getFullYear();
       aria-label="PyPI package — opens in new tab"
       >PyPI</a
     ><span class="tmux-status__separator" aria-hidden="true">│</span
-    ><span class="tmux-status__segment">MIT License</span>
+    ><a
+      href={`${links.gitlab}/-/blob/develop/LICENSE`}
+      class="tmux-status__link"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="MIT License — opens in new tab"
+      >MIT License</a
+    ><span class="tmux-status__separator" aria-hidden="true">│</span
+    ><a
+      href="https://blockchain-wares.vercel.app"
+      class="tmux-status__link"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Blockchain Wares — opens in new tab"
+      >Blockchain Wares</a>
   </div>
 </footer>
 
@@ -113,12 +116,6 @@ const currentYear = new Date().getFullYear();
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
     border-radius: var(--radius-xs);
-  }
-
-  .tmux-status__dot {
-    color: var(--color-accent-success);
-    font-size: 0.625rem;
-    line-height: 1;
   }
 
   @media (max-width: 40rem) {
