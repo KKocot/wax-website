@@ -6,6 +6,7 @@ interface Props {
     hive: string;
     npm: string;
     pypi: string;
+    tools: string;
   };
 }
 
@@ -55,6 +56,14 @@ const { links } = Astro.props;
       rel="noopener noreferrer"
       aria-label="MIT License — opens in new tab"
       >MIT License</a
+    ><span class="tmux-status__separator" aria-hidden="true">│</span
+    ><a
+      href={links.tools}
+      class="tmux-status__link"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Hive Tools — opens in new tab"
+      >Hive Tools</a
     ><span class="tmux-status__separator" aria-hidden="true">│</span
     ><a
       href="https://blockchainwares.com.pl"
